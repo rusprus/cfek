@@ -6,11 +6,12 @@ import { team } from '../data/site'
   <main>
     <header class="page-hero wrap">
       <h1>Команда</h1>
-      <p class="lede">Люди, которых фонд указал на главной странице. У Виктора Андронова на странице «О нас» есть отдельная строка: двигатель фонда, добрый и отважный человек.</p>
+      <p class="lede">Пять человек из раздела «Команда» на сайте фонда.</p>
     </header>
     <section class="section">
       <div class="wrap team-grid">
         <article v-for="person in team" :key="person.name" class="person">
+          <img :src="person.image" :alt="person.name" />
           <strong>{{ person.name }}</strong>
           <span>{{ person.role }}</span>
         </article>
