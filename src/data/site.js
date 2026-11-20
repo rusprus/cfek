@@ -1,4 +1,5 @@
-const media = (file) => `${import.meta.env.BASE_URL}media/${file}`
+export const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+const media = (file) => asset(`media/${file}`)
 
 export const fund = {
   name: 'Энергия Доброты',
@@ -108,11 +109,35 @@ export const projects = [
 ]
 
 export const team = [
-  { name: 'Виктор Андронов', role: 'Директор благотворительного фонда', image: media('team/andronov.jpg') },
-  { name: 'Оксана Звягинцева', role: 'Учредитель благотворительного фонда', image: media('team/zvyagintseva.jpg') },
+  { name: 'Виктор Андронов', role: 'Директор фонда. Почётный донор России и донор костного мозга', image: media('team/andronov.jpg') },
+  { name: 'Оксана Звягинцева', role: 'Учредитель фонда, помощник директора', image: media('team/zvyagintseva.jpg') },
   { name: 'Данила Зубков', role: 'Технический специалист', image: media('team/zubkov.jpg') },
   { name: 'Марина Якупова', role: 'Руководитель проектов', image: media('team/yakupova.jpg') },
-  { name: 'Мария Давыдова', role: 'Автоволонтёр', image: media('team/davydova.jpg') },
+  { name: 'Мария Давыдова', role: 'Автоволонтёр, перевозка помощи подопечным', image: media('team/davydova.jpg') },
+  { name: 'Егор Романенков', role: 'Видеооператор, монтаж сюжетов и роликов' },
+  { name: 'Дмитрий Иванов', role: 'Автоволонтёр, волонтёр на мероприятиях' },
+  { name: 'Наталья Лузянина', role: 'Автоволонтёр' },
+  { name: 'Лариса Смолка', role: 'Волонтёр, организатор мероприятий' },
+  { name: 'Татьяна Лобанова', role: 'Бухгалтер фонда' },
+  { name: 'Максим Юхневич', role: 'Видеооператор фонда' },
+  { name: 'Екатерина Суслович', role: 'Волонтёр' },
+  { name: 'Ольга Гомбалевская', role: 'Ведущая радиопередачи фонда' },
+]
+
+export const partners = [
+  { name: 'Национальный регистр доноров костного мозга имени Васи Перевощикова', image: media('partners/nrdkm.jpg') },
+  { name: 'НИИ детской онкологии, гематологии и трансплантологии им. Р. М. Горбачёвой', image: media('partners/gorbacheva.jpg') },
+  { name: 'Волонтёры-медики', image: media('partners/medvol.png') },
+  { name: 'Фонд Доноров', image: media('partners/donors.jpg') },
+  { name: 'Благотворительный фонд «Сила искусства»', image: media('partners/art.jpeg') },
+  { name: 'Боевое братство', image: media('partners/bb.png') },
+  { name: 'Комитет гражданских инициатив', image: media('partners/kgi.jpg') },
+  { name: 'Национальная премия «Гражданская инициатива»', image: media('partners/prize.jpg') },
+  { name: 'Мост поколений', image: media('partners/most.png') },
+  { name: 'Сочинский медицинский колледж', image: media('partners/sochi.jpg') },
+  { name: 'ЦГБ №3 города Донецка', image: media('partners/cgb3.png') },
+  { name: 'Unisender', image: media('partners/unisender.jpg') },
+  { name: 'Агентство «Белая Лошадь»', image: media('partners/whitehorse.png') },
 ]
 
 export const news = [
@@ -148,6 +173,8 @@ export const documents = [
   { title: 'Устав фонда', href: 'http://cfek.ru/wp-content/uploads/2023/11/1_merged-1.pdf' },
   { title: 'Свидетельство о регистрации НКО', href: 'http://cfek.ru/wp-content/uploads/2023/11/registrazia.pdf' },
   { title: 'Свидетельство о постановке на учёт в налоговой', href: 'http://cfek.ru/wp-content/uploads/2023/11/nalogovay.pdf' },
+  { title: 'Публичная оферта о договоре пожертвования', href: 'http://cfek.ru/legal/' },
+  { title: 'Политика обработки персональных данных', href: 'https://cfek.ru/privacy-policy/' },
 ]
 
 export const reports = [

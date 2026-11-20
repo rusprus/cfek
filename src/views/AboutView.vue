@@ -1,5 +1,5 @@
 <script setup>
-import { directions, stats } from '../data/site'
+import { asset, directions, stats } from '../data/site'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import { directions, stats } from '../data/site'
       <p class="lede">
         Благотворительный фонд «Энергия ДоброТы» поддерживает детей с онкологическими заболеваниями,
         развивает донорство костного мозга и помогает людям, которым нужна гуманитарная поддержка.
-        Каждый день на протяжении 11 лет фонд делает полезные дела.
+        На странице «О нас» фонда указано больше 13 лет благотворительной работы.
       </p>
     </header>
     <section class="section">
@@ -23,7 +23,7 @@ import { directions, stats } from '../data/site'
           </p>
         </div>
         <div class="figure">
-          <img src="/media/hero.jpg" alt="Работа фонда" />
+          <img :src="asset('media/hero.jpg')" alt="Работа фонда" />
         </div>
       </div>
       <div class="wrap stats" style="margin-top: 28px">

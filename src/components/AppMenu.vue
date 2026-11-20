@@ -1,40 +1,32 @@
 <script setup>
 import { ui, closeMenu } from '../menu'
 
-const main = [
-  { to: '/about', label: 'Кто мы' },
-  { to: '/projects', label: 'Что мы делаем' },
-  { to: '/help', label: 'Помочь фонду' },
-  { to: '/need-help', label: 'Получить помощь' },
+const links = [
+  { to: '/about', label: 'О фонде' },
+  { to: '/projects', label: 'Проекты' },
+  { to: '/help', label: 'Как помочь' },
+  { to: '/donate', label: 'Поддержать фонд' },
+  { to: '/volunteers', label: 'Волонтёрам' },
+  { to: '/need-help', label: 'Нужна помощь' },
   { to: '/news', label: 'Новости' },
-  { to: '/contacts', label: 'Контакты' },
-]
-const side = [
+  { to: '/team', label: 'Команда' },
   { to: '/reports', label: 'Отчёты' },
   { to: '/documents', label: 'Документы' },
-  { to: '/team', label: 'Команда' },
-  { to: '/volunteers', label: 'Волонтёрам' },
   { to: '/press', label: 'СМИ о нас' },
+  { to: '/contacts', label: 'Контакты' },
 ]
 </script>
 
 <template>
   <div v-if="ui.menuOpen" class="menu-layer">
     <header>
-      <RouterLink to="/" @click="closeMenu">Энергия Доброты</RouterLink>
+      <strong>Энергия Доброты</strong>
       <button type="button" @click="closeMenu">Закрыть</button>
     </header>
-    <div class="menu-grid">
-      <nav>
-        <RouterLink v-for="item in main" :key="item.to" :to="item.to" @click="closeMenu">
-          {{ item.label }}
-        </RouterLink>
-      </nav>
-      <nav class="menu-side">
-        <RouterLink v-for="item in side" :key="item.to" :to="item.to" @click="closeMenu">
-          {{ item.label }}
-        </RouterLink>
-      </nav>
-    </div>
+    <nav class="menu-grid">
+      <RouterLink v-for="item in links" :key="item.to" :to="item.to" @click="closeMenu">
+        {{ item.label }}
+      </RouterLink>
+    </nav>
   </div>
 </template>

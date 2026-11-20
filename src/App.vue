@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
@@ -7,7 +7,6 @@ import AppMenu from './components/AppMenu.vue'
 import { ui } from './menu'
 
 const route = useRoute()
-const isHome = computed(() => route.name === 'home')
 const cookieOn = ref(false)
 
 onMounted(() => {
@@ -28,7 +27,7 @@ function acceptCookies() {
 </script>
 
 <template>
-  <AppHeader v-if="!isHome" />
+  <AppHeader />
   <RouterView />
   <AppFooter />
   <AppMenu />
