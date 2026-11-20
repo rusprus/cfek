@@ -227,8 +227,10 @@ function submitForm() {
         </div>
         <div ref="teamTrack" class="team-track">
           <article v-for="person in team" :key="person.name" class="person">
-            <img v-if="person.image" :src="person.image" :alt="person.name" />
-            <div v-else class="avatar" aria-hidden="true">{{ initials(person.name) }}</div>
+            <div class="portrait">
+              <img v-if="person.image" :src="person.image" :alt="person.name" :style="{ objectPosition: person.focus || 'center 18%' }" />
+              <div v-else class="avatar" aria-hidden="true">{{ initials(person.name) }}</div>
+            </div>
             <strong>{{ person.name }}</strong>
             <span>{{ person.role }}</span>
           </article>

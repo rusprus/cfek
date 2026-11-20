@@ -3,6 +3,7 @@ import { ui, closeMenu } from '../menu'
 
 const links = [
   { to: '/about', label: 'О фонде' },
+  { to: '/organizations', label: 'Организациям' },
   { to: '/projects', label: 'Проекты' },
   { to: '/help', label: 'Как помочь' },
   { to: '/donate', label: 'Поддержать фонд' },

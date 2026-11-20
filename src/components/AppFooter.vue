@@ -3,6 +3,7 @@ import { fund } from '../data/site'
 
 const links = [
   { to: '/about', label: 'О фонде' },
+  { to: '/organizations', label: 'Организациям' },
   { to: '/projects', label: 'Проекты' },
   { to: '/volunteers', label: 'Волонтёрам' },
   { to: '/news', label: 'Новости' },

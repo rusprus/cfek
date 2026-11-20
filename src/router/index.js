@@ -14,6 +14,7 @@ import DocumentsView from '../views/DocumentsView.vue'
 import VolunteersView from '../views/VolunteersView.vue'
 import TeamView from '../views/TeamView.vue'
 import PressView from '../views/PressView.vue'
+import OrganizationsView from '../views/OrganizationsView.vue'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView, meta: { title: 'Энергия Доброты — благотворительный фонд' } },
     { path: '/about', component: AboutView, meta: { title: 'О фонде — Энергия Доброты' } },
+    { path: '/organizations', component: OrganizationsView, meta: { title: 'Организациям — Энергия Доброты' } },
     { path: '/projects', component: ProjectsView, meta: { title: 'Проекты — Энергия Доброты' } },
     { path: '/projects/:slug', component: ProjectView, meta: { title: 'Проект — Энергия Доброты' } },
     { path: '/help', component: HelpView, meta: { title: 'Как помочь — Энергия Доброты' } },

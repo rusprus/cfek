@@ -11,8 +11,10 @@ import { team } from '../data/site'
     <section class="section">
       <div class="wrap team-grid">
         <article v-for="person in team" :key="person.name" class="person">
-          <img v-if="person.image" :src="person.image" :alt="person.name" />
-          <div v-else class="avatar">{{ person.name.split(' ').slice(0, 2).map((part) => part[0]).join('') }}</div>
+          <div class="portrait">
+            <img v-if="person.image" :src="person.image" :alt="person.name" :style="{ objectPosition: person.focus || 'center 18%' }" />
+            <div v-else class="avatar">{{ person.name.split(' ').slice(0, 2).map((part) => part[0]).join('') }}</div>
+          </div>
           <strong>{{ person.name }}</strong>
           <span>{{ person.role }}</span>
         </article>
