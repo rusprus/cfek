@@ -102,33 +102,41 @@ function showStory(index) {
     </section>
 
     <section class="section" style="padding-top: 0">
-      <div class="wrap news-grid">
+      <div class="wrap">
+        <h2>Новости</h2>
+        <div class="news-cards" style="margin-top: 16px">
+          <component
+            :is="item.url ? 'a' : 'RouterLink'"
+            v-for="item in (vkPosts.length ? vkPosts : news).slice(0, 5)"
+            :key="item.id || item.slug"
+            class="news-card"
+            :href="item.url || undefined"
+            :to="item.url ? undefined : `/news/${item.slug}`"
+            :target="item.url ? '_blank' : undefined"
+            :rel="item.url ? 'noreferrer' : undefined"
+          >
+            <span v-if="newsImage(item)" class="news-photo">
+              <img :src="newsImage(item)" :alt="item.title" />
+            </span>
+            <div class="card-body">
+              <p class="muted">{{ newsDate(item.date) }}</p>
+              <h3>{{ item.title }}</h3>
+            </div>
+          </component>
+        </div>
+        <p class="news-more">
+          <RouterLink class="text-link" to="/news">Все новости</RouterLink>
+        </p>
+      </div>
+      <div class="wrap news-grid" style="margin-top: 36px">
         <div>
-          <h2>Новости и события</h2>
+          <h2>События</h2>
           <article v-for="item in events.filter((event) => event.upcoming)" :key="item.id" class="way" style="margin-top: 16px">
             <p class="muted">{{ item.when }}</p>
             <h3>{{ item.title }}</h3>
             <p>{{ item.text }}</p>
             <RouterLink class="text-link" :to="`/events#${item.id}`">Регистрация</RouterLink>
           </article>
-          <component
-            :is="item.url ? 'a' : 'RouterLink'"
-            v-for="item in (vkPosts.length ? vkPosts : news).slice(0, 4)"
-            :key="item.id || item.slug"
-            class="news-card"
-            style="margin-top: 16px"
-            :href="item.url || undefined"
-            :to="item.url ? undefined : `/news/${item.slug}`"
-            :target="item.url ? '_blank' : undefined"
-            :rel="item.url ? 'noreferrer' : undefined"
-          >
-            <img v-if="newsImage(item)" :src="newsImage(item)" :alt="item.title" />
-            <div class="card-body">
-              <p class="muted">{{ newsDate(item.date) }}</p>
-              <h3>{{ item.title }}</h3>
-              <p>{{ item.text ? (item.text.length > 180 ? `${item.text.slice(0, 177)}…` : item.text) : '' }}</p>
-            </div>
-          </component>
         </div>
         <div>
           <h2>ВКонтакте</h2>
