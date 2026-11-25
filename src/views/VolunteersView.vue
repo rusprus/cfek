@@ -1,35 +1,73 @@
 <script setup>
-import { fund } from '../data/site'
+import { ref } from 'vue'
+import { donorFaq, fund } from '../data/site'
+
 const roles = [
-  { title: 'Автоволонтёр', text: 'Если есть машина: фонду постоянно нужно отвезти что-то из одной части города в другую.' },
-  { title: 'Медиа', text: 'Фото, видеомонтаж, социальные сети, тексты, дизайн и соседние навыки.' },
-  { title: 'Ассистент', text: 'Помощь детям на мероприятиях, мастер-классы и участие в акциях.' },
+  { title: 'Мероприятия', text: 'Помощь детям на акциях и мастер-классах: рисование, поздравления, участие во флешмобах.' },
+  { title: 'Транспорт', text: 'Автоволонтёры возят помощь по городу: вещи, продукты, посылки для подопечных.' },
+  { title: 'Медиа', text: 'Фото, видео, тексты и социальные сети. Отдельной вакансии психолога фонд на сайте не публикует.' },
 ]
-const gives = ['Благодарственное письмо', 'Знакомства', 'Мероприятия', 'Волонтёрские часы', 'Упоминание в социальных сетях']
+const sent = ref(false)
+const form = ref({ name: '', contact: '', role: 'Мероприятия', message: '' })
+
+function submit() {
+  const subject = encodeURIComponent('Заявка волонтёра')
+  const body = encodeURIComponent(`${form.value.name}\n${form.value.contact}\nРоль: ${form.value.role}\n\n${form.value.message}`)
+  window.location.href = `mailto:${fund.email}?subject=${subject}&body=${body}`
+  sent.value = true
+}
 </script>
 
 <template>
   <main>
     <header class="page-hero wrap">
-      <h1>Чем вы готовы помочь?</h1>
-      <p class="lede">Детям во время лечения не хватает общения. Фонд ищет людей в эти роли.</p>
+      <h1>Донорам и волонтёрам</h1>
+      <p class="lede">Как вступить в регистр костного мозга и какие задачи фонд уже отдаёт волонтёрам.</p>
     </header>
+
     <section class="section">
-      <div class="wrap card-grid">
-        <article v-for="role in roles" :key="role.title" class="way">
-          <h3>{{ role.title }}</h3>
-          <p>{{ role.text }}</p>
-        </article>
-      </div>
-      <div class="wrap" style="margin-top: 28px">
-        <h2>Что фонд даёт взамен</h2>
-        <div class="way-grid" style="margin-top: 16px">
-          <p v-for="item in gives" :key="item" class="way">{{ item }}</p>
+      <div class="wrap split">
+        <div class="prose">
+          <h2>Стать донором</h2>
+          <p>Фонд рассказывает о регистре и проводит лекции. Сама запись в Национальный регистр идёт на rdkm.ru.</p>
+          <details v-for="item in donorFaq" :key="item.q" class="faq">
+            <summary>{{ item.q }}</summary>
+            <p>{{ item.a }}</p>
+          </details>
+          <p>
+            <a class="btn" href="https://rdkm.ru/donation-application" target="_blank" rel="noreferrer">Форма записи в регистр</a>
+          </p>
+          <p style="margin-top: 12px">
+            <RouterLink class="text-link" to="/programs/blood">Программа донорства крови</RouterLink>
+          </p>
         </div>
-        <p style="margin-top: 18px">
-          <a class="btn" :href="fund.phoneHref">{{ fund.phone }}</a>
-          <a class="text-link" :href="`mailto:${fund.email}`" style="margin-left: 16px">{{ fund.email }}</a>
-        </p>
+        <form class="paper" @submit.prevent="submit">
+          <h2>Стать волонтёром</h2>
+          <article v-for="role in roles" :key="role.title" style="margin-top: 14px">
+            <h3>{{ role.title }}</h3>
+            <p>{{ role.text }}</p>
+          </article>
+          <label class="field" style="margin-top: 16px">
+            <span>Имя</span>
+            <input v-model="form.name" required />
+          </label>
+          <label class="field">
+            <span>Телефон или почта</span>
+            <input v-model="form.contact" required />
+          </label>
+          <label class="field">
+            <span>Задача</span>
+            <select v-model="form.role">
+              <option v-for="role in roles" :key="role.title">{{ role.title }}</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Комментарий</span>
+            <textarea v-model="form.message" required></textarea>
+          </label>
+          <button class="btn" type="submit">Отправить заявку</button>
+          <p v-if="sent" class="note">Открылось письмо на {{ fund.email }}.</p>
+        </form>
       </div>
     </section>
   </main>

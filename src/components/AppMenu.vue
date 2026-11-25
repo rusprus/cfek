@@ -3,17 +3,16 @@ import { ui, closeMenu } from '../menu'
 
 const links = [
   { to: '/about', label: 'О фонде' },
+  { to: '/programs', label: 'Программы' },
+  { to: '/wards', label: 'Подопечные' },
+  { to: '/events', label: 'События' },
   { to: '/organizations', label: 'Организациям' },
-  { to: '/projects', label: 'Проекты' },
-  { to: '/help', label: 'Как помочь' },
+  { to: '/volunteers', label: 'Донорам и волонтёрам' },
   { to: '/donate', label: 'Поддержать фонд' },
-  { to: '/volunteers', label: 'Волонтёрам' },
   { to: '/need-help', label: 'Нужна помощь' },
   { to: '/news', label: 'Новости' },
-  { to: '/team', label: 'Команда' },
   { to: '/reports', label: 'Отчёты' },
   { to: '/documents', label: 'Документы' },
-  { to: '/press', label: 'СМИ о нас' },
   { to: '/contacts', label: 'Контакты' },
 ]
 </script>

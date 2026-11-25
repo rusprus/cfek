@@ -1,6 +1,22 @@
 <script setup>
-import { ref } from 'vue'
-import { fund } from '../data/site'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { fund, programs } from '../data/site'
+
+const route = useRoute()
+const goals = [{ slug: 'fund', title: 'Уставные программы фонда' }, ...programs]
+const goal = ref(goals.some((item) => item.slug === route.query.goal) ? route.query.goal : 'fund')
+const goalTitle = computed(() => goals.find((item) => item.slug === goal.value)?.title)
+const purpose = computed(() =>
+  goal.value === 'fund' ? fund.purpose : `Благотворительное пожертвование. Программа: ${goalTitle.value}. НДС не облагается.`,
+)
+
+watch(
+  () => route.query.goal,
+  (value) => {
+    if (goals.some((item) => item.slug === value)) goal.value = value
+  },
+)
 
 const amounts = [300, 500, 1000, 3000]
 const amount = ref(500)
@@ -19,7 +35,7 @@ function onCustom(event) {
 }
 
 async function copyPurpose() {
-  const text = `${fund.purpose} ИНН ${fund.inn}, счёт ${fund.account}`
+  const text = `${purpose.value} ИНН ${fund.inn}, счёт ${fund.account}`
   try {
     await navigator.clipboard.writeText(text)
     copied.value = true
@@ -41,6 +57,12 @@ async function copyPurpose() {
     <section class="section">
       <div class="wrap split">
         <form class="paper" @submit.prevent>
+          <label class="field">
+            <span>Цель сбора</span>
+            <select v-model="goal">
+              <option v-for="item in goals" :key="item.slug" :value="item.slug">{{ item.title }}</option>
+            </select>
+          </label>
           <div class="toggle">
             <button type="button" :class="{ on: !monthly }" @click="monthly = false">Один раз</button>
             <button type="button" :class="{ on: monthly }" @click="monthly = true">Каждый месяц</button>
@@ -68,7 +90,7 @@ async function copyPurpose() {
             <div><span>Банк</span><b>{{ fund.bank }}</b></div>
             <div><span>БИК</span><b>{{ fund.bik }}</b></div>
             <div><span>Корр. счёт</span><b>{{ fund.corr }}</b></div>
-            <div><span>Назначение</span><b>{{ fund.purpose }}</b></div>
+            <div><span>Назначение</span><b>{{ purpose }}</b></div>
           </div>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px">
             <button class="btn" type="button" @click="copyPurpose">

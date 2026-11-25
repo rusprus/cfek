@@ -4,9 +4,10 @@ import { openMenu } from '../menu'
 
 const links = [
   { to: '/about', label: 'О фонде' },
-  { to: '/organizations', label: 'Организациям' },
-  { to: '/projects', label: 'Проекты' },
-  { to: '/news', label: 'Новости' },
+  { to: '/programs', label: 'Программы' },
+  { to: '/wards', label: 'Подопечные' },
+  { to: '/events', label: 'События' },
+  { to: '/contacts', label: 'Контакты' },
 ]
 </script>
 
