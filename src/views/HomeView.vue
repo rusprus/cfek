@@ -1,13 +1,16 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { asset, events, fund, news, programs, stats, wards } from '../data/site'
+import { loadVkPosts } from '../vk'
 
 const story = ref(0)
+const vkPosts = ref([])
 let timer
 
 const slides = [asset('media/hero.jpg'), asset('media/flash.jpg'), asset('media/pharmacy.jpg'), asset('media/help.jpg')]
 
-onMounted(() => {
+onMounted(async () => {
+  vkPosts.value = await loadVkPosts()
   timer = setInterval(() => {
     story.value = (story.value + 1) % wards.length
   }, 7000)
@@ -108,10 +111,11 @@ function showStory(index) {
             <p>{{ item.text }}</p>
             <RouterLink class="text-link" :to="`/events#${item.id}`">Регистрация</RouterLink>
           </article>
-          <article v-for="item in news" :key="item.slug" class="way" style="margin-top: 16px">
+          <article v-for="item in (vkPosts.length ? vkPosts : news).slice(0, 4)" :key="item.id || item.slug" class="way" style="margin-top: 16px">
             <p class="muted">{{ item.date }}</p>
             <h3>{{ item.title }}</h3>
-            <RouterLink class="text-link" :to="`/news/${item.slug}`">Читать</RouterLink>
+            <a v-if="item.url" class="text-link" :href="item.url" target="_blank" rel="noreferrer">Запись ВКонтакте</a>
+            <RouterLink v-else class="text-link" :to="`/news/${item.slug}`">Читать</RouterLink>
           </article>
         </div>
         <div>
