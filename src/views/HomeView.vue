@@ -1,7 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { asset, events, fund, news, programs, stats, wards } from '../data/site'
-import { loadVkPosts } from '../vk'
+import { loadVkPosts, newsDate, newsImage } from '../vk'
 
 const story = ref(0)
 const vkPosts = ref([])
@@ -111,12 +111,24 @@ function showStory(index) {
             <p>{{ item.text }}</p>
             <RouterLink class="text-link" :to="`/events#${item.id}`">Регистрация</RouterLink>
           </article>
-          <article v-for="item in (vkPosts.length ? vkPosts : news).slice(0, 4)" :key="item.id || item.slug" class="way" style="margin-top: 16px">
-            <p class="muted">{{ item.date }}</p>
-            <h3>{{ item.title }}</h3>
-            <a v-if="item.url" class="text-link" :href="item.url" target="_blank" rel="noreferrer">Запись ВКонтакте</a>
-            <RouterLink v-else class="text-link" :to="`/news/${item.slug}`">Читать</RouterLink>
-          </article>
+          <component
+            :is="item.url ? 'a' : 'RouterLink'"
+            v-for="item in (vkPosts.length ? vkPosts : news).slice(0, 4)"
+            :key="item.id || item.slug"
+            class="news-card"
+            style="margin-top: 16px"
+            :href="item.url || undefined"
+            :to="item.url ? undefined : `/news/${item.slug}`"
+            :target="item.url ? '_blank' : undefined"
+            :rel="item.url ? 'noreferrer' : undefined"
+          >
+            <img v-if="newsImage(item)" :src="newsImage(item)" :alt="item.title" />
+            <div class="card-body">
+              <p class="muted">{{ newsDate(item.date) }}</p>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.text ? (item.text.length > 180 ? `${item.text.slice(0, 177)}…` : item.text) : '' }}</p>
+            </div>
+          </component>
         </div>
         <div>
           <h2>ВКонтакте</h2>
